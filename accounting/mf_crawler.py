@@ -13,7 +13,7 @@ def mf_driver():
     """
     options = Options()
     options.add_argument("--headless")
-    driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+    driver = webdriver.Chrome(options=options)
     driver.get("https://id.moneyforward.com/sign_in/email")
     driver.find_element_by_name("mfid_user[email]").send_keys(os.environ["MF_EMAIL"])
     driver.find_element_by_xpath("//input[@type='submit' and @value='同意してログインする']").click()
@@ -24,7 +24,7 @@ def mf_driver():
     return driver
 
 
-def get_blance_sheet():
+def get_balance_sheet():
     """Get the latest assets.
 
     Returns:
