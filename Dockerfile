@@ -8,3 +8,7 @@ RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc
     unzip chromedriver_linux64.zip && \
     mv chromedriver /usr/bin/ && \
     rm chromedriver_linux64.zip
+
+COPY requirements.txt requirements.txt
+RUN pip install -U pip && \
+    pip install -r requirements.txt
