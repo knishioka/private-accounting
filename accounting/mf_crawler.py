@@ -13,6 +13,7 @@ def mf_driver():
     """
     options = Options()
     options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(options=options)
     driver.get("https://id.moneyforward.com/sign_in/email")
     driver.find_element_by_name("mfid_user[email]").send_keys(os.environ["MF_EMAIL"])
