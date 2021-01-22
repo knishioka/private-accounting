@@ -46,5 +46,5 @@ def get_balance_sheet():
     return {
         "total_asset": driver.find_element_by_css_selector(".heading-radius-box-asset").text,
         "liability": driver.find_element_by_css_selector(".heading-radius-box-liability").text,
-        "net_asset": driver.find_element_by_css_selector("heading-radius-box-net").text,
+        "net_asset": driver.find_element_by_css_selector(".heading-radius-box-net").text,
     }
