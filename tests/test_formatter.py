@@ -12,5 +12,5 @@ def bs_dict():
 
 
 @freeze_time("2021-01-01")
-def test_format_bs(bs_dict, mocker):
+def test_format_bs(bs_dict):
     assert format_bs(bs_dict) == "2021-01-01\n資産総額： 1,000,000\n負債総額： 100,000\n総資産： 900,000"
