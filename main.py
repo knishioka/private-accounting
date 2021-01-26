@@ -14,7 +14,7 @@ def main():
     if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") is not None:
         store_bs(bs)
     else:
-        sys.stderr("GOOGLE_APPLICATION_CREDENTIAL doesn't exist. Skipped setting firestore.")
+        sys.stderr.write("GOOGLE_APPLICATION_CREDENTIAL doesn't exist. Skipped setting firestore.\n")
 
     notify(format_bs(bs))
 
