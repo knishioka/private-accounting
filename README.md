@@ -65,6 +65,6 @@ aws lambda create-function \
   --function-name private-accounting \
   --package-type Image \
   --code ImageUri=${REGISTRY_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/private-accounting:v1.0 \
-  --role arn:aws:iam::980831117329:role/lambda-private-accounting \
+  --role arn:aws:iam::${REGISTRY_ID}:role/lambda-private-accounting \
   --environment Variables={ENCRPYTED_MF_EMAIL=${encrpyted_mf_email},ENCRYPTED_MF_PASSWORD=${encrypted_mf_password},ENCRYPTED_LINE_TOKEN=${encrypted_line_token}}
 ```
