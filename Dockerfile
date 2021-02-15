@@ -12,8 +12,8 @@ RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt requirements.txt
+COPY . .
 RUN pip install pip==21.0.1 && \
     pip install -r requirements.txt
 
-CMD ["python", "-m", "main"]
+CMD ["/usr/local/bin/python", "-m", "main"]
