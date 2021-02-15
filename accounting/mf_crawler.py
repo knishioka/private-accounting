@@ -17,6 +17,11 @@ def mf_driver():
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
+    options.add_argument("--single-process")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-gpu-sandbox")
+    options.add_argument("window-size=1920x1080")
     options.add_argument(
         "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
