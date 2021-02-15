@@ -16,4 +16,6 @@ COPY . .
 RUN pip install pip==21.0.1 && \
     pip install -r requirements.txt
 
+RUN useradd app
+USER app
 CMD ["/usr/local/bin/python", "-m", "main"]
