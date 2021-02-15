@@ -34,3 +34,15 @@ docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app accounting python -m 
 ```bash
 docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app accounting pytest
 ```
+
+## Run on AWS Lambda
+### Build Image for ECR
+
+```bash
+aws ecr describe-repositories --region ${AWS_REGION}
+```
+
+### Push Image to ECR
+```
+≈docker push ${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:v1.0
+```
