@@ -6,7 +6,7 @@ Automation scripts for private accounting.
 ## Build Image
 
 ```bash
-docker build -t accounting .
+docker build -t private-accounting .
 ```
 
 ## Quick Start
@@ -26,13 +26,13 @@ cp .env.sample .env
 ### Run Main Script
 
 ```bash
-docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app accounting python -m main
+docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app private-accounting python -m main
 ```
 
 ### Run Tests
 
 ```bash
-docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app accounting pytest
+docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app private-accounting pytest
 ```
 
 ## Run on AWS Lambda

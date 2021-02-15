@@ -13,5 +13,5 @@ RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc
     rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt requirements.txt
-RUN pip install pip==20.3.3 && \
+RUN pip install pip==21.0.1 && \
     pip install -r requirements.txt
