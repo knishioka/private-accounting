@@ -14,4 +14,4 @@ def kms_decrypt(encrypted_txt):
 
     """
     client = boto3.client("kms")
-    return client.decrypt(CiphertextBlob=base64.b64decode(encrypted_txt))["Plaintext"]
+    return client.decrypt(CiphertextBlob=base64.b64decode(encrypted_txt))["Plaintext"].decode("utf-8")

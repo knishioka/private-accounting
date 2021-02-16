@@ -1,21 +1,20 @@
-FROM python:3.8.6
+FROM public.ecr.aws/lambda/python:3.8
 
-WORKDIR /usr/src/app
-RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 2> /dev/null && \
-    apt-get update && \
-    apt-get install -y google-chrome-stable && \
-    wget https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip && \
+RUN yum -y install wget unzip libX11 nano wget unzip xorg-x11-xauth xclock xterm
+
+RUN mkdir /var/task/bin
+RUN wget https://github.com/adieuadieu/serverless-chrome/releases/download/v1.0.0-57/dev-headless-chromium-amazonlinux-2.zip && \
+    unzip dev-headless-chromium-amazonlinux-2.zip && \
+    mv headless-chromium /var/task/bin/headless-chromium && \
+    rm dev-headless-chromium-amazonlinux-2.zip
+
+RUN wget https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
-    mv chromedriver /usr/bin/ && \
-    rm chromedriver_linux64.zip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    mv chromedriver /var/task/bin/chromedriver && \
+    rm chromedriver_linux64.zip
 
 COPY . .
 RUN pip install  --no-cache-dir pip==21.0.1 && \
-    pip install  --no-cache-dir -r requirements.txt \
-    pip install  --no-cache-dir --target . awslambdaric
+    pip install  --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["/usr/local/bin/python", "-m", "awslambdaric"]
 CMD ["app.handler"]
