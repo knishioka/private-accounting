@@ -13,12 +13,9 @@ RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc
     rm -rf /var/lib/apt/lists/*
 
 COPY . .
-RUN pip install pip==21.0.1 && \
-    pip install -r requirements.txt \
-    pip install awslambdaric
-
-RUN useradd app
-USER app
+RUN pip install  --no-cache-dir pip==21.0.1 && \
+    pip install  --no-cache-dir -r requirements.txt \
+    pip install  --no-cache-dir --target . awslambdaric
 
 ENTRYPOINT ["/usr/local/bin/python", "-m", "awslambdaric"]
 CMD ["app.handler"]
