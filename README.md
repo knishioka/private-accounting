@@ -10,7 +10,7 @@ docker build -t private-accounting .
 ```
 
 ## Quick Start
-### Set Env
+### Set env
 ```bash
 cp .env.sample .env
 ```
@@ -23,32 +23,45 @@ cp .env.sample .env
 - GOOGLE_APPLICATION_CREDENTIALS: Path to google cloud credential file.
 
 
-### Run Main Script
+### Run main script
 
 ```bash
 docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app private-accounting python -m main
 ```
 
-### Run Tests
+### Run tests
 
 ```bash
 docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app private-accounting pytest
 ```
 
-## Run on AWS Lambda
-### Build Image for ECR
+### Run AWS Lambda Locally
+#### Run lambda container image
+
+```bash
+docker run --rm --env-file=.env -p 9000:8080 -it private-accounting
+```
+
+#### Post an event to invoke lambda
+
+```bash
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
+```
+
+## Create AWS Lambda
+### Build image for ECR
 
 ```bash
 aws ecr describe-repositories --region ${AWS_REGION}
 ```
 
-### Push Image to ECR
+### Push image to ECR
 
 ```bash
 docker push ${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:v1.0
 ```
 
-### Create Lambda Function
+### Create lambda function
 
 Encrypt env variables by KMS.
 
