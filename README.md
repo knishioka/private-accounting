@@ -3,13 +3,13 @@
 
 Automation scripts for private accounting.
 
-## Build Image
+## Quick Start
+### Build image for local run
 
 ```bash
 docker build -t private-accounting .
 ```
 
-## Quick Start
 ### Set env
 ```bash
 cp .env.sample .env
@@ -36,10 +36,15 @@ docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app private-accounting py
 ```
 
 ### Run AWS Lambda Locally
+#### Build image for local lambda run
+
+```bash
+docker build -t private-accounting-lambda -f lambda/Dockerfile .
+```
 #### Run lambda container image
 
 ```bash
-docker run --rm --env-file=.env -p 9000:8080 -it private-accounting
+docker run --rm --env-file=.env -p 9000:8080 -it private-accounting-lambda
 ```
 
 #### Post an event to invoke lambda
