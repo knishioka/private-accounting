@@ -35,29 +35,36 @@ docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app private-accounting py
 docker run --rm --env-file=.env -it -v $(pwd):/usr/src/app private-accounting pytest
 ```
 
-### Run AWS Lambda Locally
-#### Build image for local lambda run
+## Run as Lambda Locally
+### Build image for local lambda run
 
 ```bash
 docker build -t private-accounting-lambda -f lambda/Dockerfile .
 ```
-#### Run lambda container image
+
+### Run lambda container image
 
 ```bash
 docker run --rm --env-file=.env -p 9000:8080 -it private-accounting-lambda
 ```
 
-#### Post an event to invoke lambda
+### Post an event to invoke lambda
 
 ```bash
 curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
 ```
 
-## Create AWS Lambda
+## Run on AWS Lambd
 ### Build image for ECR
 
 ```bash
-aws ecr describe-repositories --region ${AWS_REGION}
+docker build -t ${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:v1.0 -f lambda/Dockerfile .
+```
+
+### Log in ECR
+
+```bash
+$(aws ecr get-login --no-include-email)
 ```
 
 ### Push image to ECR
