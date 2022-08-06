@@ -35,7 +35,7 @@ def mf_driver():
     )
     driver = webdriver.Chrome(executable_path="/tmp/bin/chromedriver", chrome_options=options)
     try:
-        driver.get("https://id.moneyforward.com/sign_in")
+        driver.get("https://id.moneyforward.com/sign_in/email")
         driver.find_element_by_name("mfid_user[email]").send_keys(email())
         driver.find_element_by_xpath("//input[@type='submit' and @value='同意してログインする']").click()
         driver.find_element_by_name("mfid_user[password]").send_keys(password())
