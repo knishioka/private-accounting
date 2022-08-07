@@ -58,7 +58,7 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 ### Build image for ECR
 
 ```bash
-docker build -t ${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:v1.0 -f lambda/Dockerfile .
+docker build -t ${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:v1.0 -f lambda/Dockerfile . --platform=linux/amd64
 ```
 
 ### Log in ECR
