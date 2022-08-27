@@ -1,5 +1,6 @@
 import os
 
+from fake_useragent import UserAgent
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
@@ -29,11 +30,18 @@ def mf_driver():
     options.add_argument("--log-level=0")
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--homedir=/tmp")
+    options.add_argument("--enable-javascript")
+
+    ua = UserAgent()
+    userAgent = ua.random
     options.add_argument(
         "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
     )
+
     driver = webdriver.Chrome(executable_path="/tmp/bin/chromedriver", chrome_options=options)
+    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+    driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": userAgent})
     try:
         driver.get("https://id.moneyforward.com/sign_in/email")
         driver.find_element_by_name("mfid_user[email]").send_keys(email())
