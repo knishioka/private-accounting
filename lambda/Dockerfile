@@ -1,19 +1,20 @@
+FROM public.ecr.aws/lambda/python:3.9 as build
+RUN yum install -y unzip && \
+    curl -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapis.com/104.0.5112.79/chromedriver_linux64.zip" && \
+    curl -Lo "/tmp/chrome-linux.zip" "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1012728%2Fchrome-linux.zip?alt=media" && \
+    unzip /tmp/chromedriver.zip -d /opt/ && \
+    unzip /tmp/chrome-linux.zip -d /opt/
+
 FROM public.ecr.aws/lambda/python:3.9
-
-RUN yum -y install wget unzip libX11 nano wget unzip xorg-x11-xauth xclock xterm
-
-RUN mkdir /var/task/bin
-RUN wget https://github.com/adieuadieu/serverless-chrome/releases/download/v1.0.0-57/dev-headless-chromium-amazonlinux-2.zip && \
-    unzip dev-headless-chromium-amazonlinux-2.zip && \
-    mv headless-chromium /var/task/bin/headless-chromium && \
-    rm dev-headless-chromium-amazonlinux-2.zip
-
-RUN wget https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip && \
-    unzip chromedriver_linux64.zip && \
-    mv chromedriver /var/task/bin/chromedriver && \
-    rm chromedriver_linux64.zip
+RUN yum install atk cups-libs gtk3 libXcomposite alsa-lib \
+    libXcursor libXdamage libXext libXi libXrandr libXScrnSaver \
+    libXtst pango at-spi2-atk libXt xorg-x11-server-Xvfb \
+    xorg-x11-xauth dbus-glib dbus-glib-devel -y
+COPY --from=build /opt/chrome-linux /opt/chrome
+COPY --from=build /opt/chromedriver /opt/
 
 COPY . .
+
 RUN pip install  --no-cache-dir pip==22.2.2 && \
     pip install  --no-cache-dir -r requirements.txt
 

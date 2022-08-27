@@ -1,4 +1,5 @@
 import os
+from tempfile import mkdtemp
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -15,27 +16,21 @@ def mf_driver():
 
     """
     options = Options()
-    options.binary_location = "/tmp/bin/headless-chromium"
+    options.binary_location = "/opt/chrome/chrome"
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
-    options.add_argument("--single-process")
-    options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1280x1696")
-    options.add_argument("--disable-application-cache")
-    options.add_argument("--disable-infobars")
-    options.add_argument("--hide-scrollbars")
-    options.add_argument("--enable-logging")
-    options.add_argument("--log-level=0")
-    options.add_argument("--ignore-certificate-errors")
-    options.add_argument("--homedir=/tmp")
-    options.add_argument("--enable-javascript")
-    options.add_argument(
-        "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
-    )
+    options.add_argument("--single-process")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-dev-tools")
+    options.add_argument("--no-zygote")
+    options.add_argument(f"--user-data-dir={mkdtemp()}")
+    options.add_argument(f"--data-path={mkdtemp()}")
+    options.add_argument(f"--disk-cache-dir={mkdtemp()}")
+    options.add_argument("--remote-debugging-port=9222")
 
-    driver = webdriver.Chrome(executable_path="/tmp/bin/chromedriver", chrome_options=options)
+    driver = webdriver.Chrome("/opt/chromedriver", chrome_options=options)
     try:
         driver.get("https://id.moneyforward.com/sign_in/email")
         driver.find_element_by_name("mfid_user[email]").send_keys(email())
