@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.8
+FROM public.ecr.aws/lambda/python:3.9
 
 RUN yum -y install wget unzip libX11 nano wget unzip xorg-x11-xauth xclock xterm
 
@@ -14,7 +14,7 @@ RUN wget https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_l
     rm chromedriver_linux64.zip
 
 COPY . .
-RUN pip install  --no-cache-dir pip==21.0.1 && \
+RUN pip install  --no-cache-dir pip==22.2.2 && \
     pip install  --no-cache-dir -r requirements.txt
 
 CMD ["app.handler"]
