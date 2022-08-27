@@ -1,10 +1,6 @@
 repos:
-- repo: https://github.com/asottile/seed-isort-config
-  rev: v2.2.0
-  hooks:
-  - id: seed-isort-config
-- repo: https://github.com/pre-commit/mirrors-isort
-  rev: v5.10.1
+- repo: https://github.com/pycqa/isort
+  rev: 5.10.1
   hooks:
   - id: isort
     additional_dependencies: ["toml"]
@@ -12,8 +8,8 @@ repos:
   rev: 22.6.0
   hooks:
   - id: black
-    language_version: python3.8
+    language_version: python3.10
 - repo: https://gitlab.com/pycqa/flake8
-  rev: 3.9.0
+  rev: 5.0.4
   hooks:
   - id: flake8
